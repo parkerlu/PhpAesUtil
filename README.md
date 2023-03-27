@@ -41,3 +41,15 @@ PHP decrypt the data which encrypted  by JAVA AES 128 SHA1PRNG
     
     
 # PHP code 
+
+    $a = new AesUtil("1234567890123456");
+    // 解密
+    $a->decrypt("12ce8dbbd1508dd0277c926aa737e714");
+    //加密
+    $a->encrypt('12345');
+
+# License
+No License
+
+
+    
