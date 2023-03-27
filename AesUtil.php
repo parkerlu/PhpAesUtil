@@ -1,5 +1,5 @@
 <?php
-namespace App\Support;
+
 class AesUtil{
 
     public $method;//加密算法
