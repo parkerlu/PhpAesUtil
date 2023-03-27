@@ -11,10 +11,6 @@ PHP decrypt the data which encrypted  by JAVA AES 128 SHA1PRNG
     public class AesUtil {
         /** 密钥长度: 128, 192 or 256 */
         private static final int KEY_SIZE = 128;
-        /** 加密/解密算法名称 */
-        private static final String ALGORITHM = "AES";
-        /** 随机数生成器（RNG）算法名称 */
-        private static final String RNG_ALGORITHM = "SHA1PRNG";
 
         /**
          * 生成密钥对象
