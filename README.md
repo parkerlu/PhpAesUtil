@@ -5,9 +5,43 @@ PHP decrypt the data which encrypted  by JAVA AES 128 SHA1PRNG
 
 # Java encode and decode
     /**
-    * AES 对称算法加密/解密工具类
-    * @author Arthur.Xie
-    */
+     * AES 对称算法加密/解密工具类
+     * @author Arthur.Xie
+     */
+    public class AesUtil {
+        /** 密钥长度: 128, 192 or 256 */
+        private static final int KEY_SIZE = 128;
+        /** 加密/解密算法名称 */
+        private static final String ALGORITHM = "AES";
+        /** 随机数生成器（RNG）算法名称 */
+        private static final String RNG_ALGORITHM = "SHA1PRNG";
+
+        /**
+         * 生成密钥对象
+         * @param key                       密钥字节数组
+         * @return                          密钥对象
+         * @throws Exception                抛出异常
+         */
+        private static SecretKey generateKey(byte[] key) throws Exception {
+            // 创建安全随机数生成器
+            SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+            // 设置 密钥key的字节数组 作为安全随机数生成器的种子
+            random.setSeed(key);
+            // 创建 AES算法生成器
+            KeyGenerator gen = KeyGenerator.getInstance("AES");
+            // 初始化算法生成器
+            gen.init(KEY_SIZE, random);
+            // 生成 AES密钥对象, 也可以直接创建密钥对象: return new SecretKeySpec(key, ALGORITHM);
+            return gen.generateKey();
+        }
+
+        /**
+         * 数据加密: 明文 -> 密文
+         * @param plainBytes                明文字节数组
+         * @param key                       密钥字节数组
+         * @return                          密文字节数组
+         * @throws Exception                抛出异常
+         */
         public static byte[] encrypt(byte[] plainBytes, byte[] key) throws Exception {
             // 生成密钥对象
             SecretKey secKey = generateKey(key);
@@ -36,10 +70,10 @@ PHP decrypt the data which encrypted  by JAVA AES 128 SHA1PRNG
             // 解密数据, 返回明文
             return cipher.doFinal(cipherBytes);
         }
-
     }
+        
     
-    
+
 # PHP code 
 
     $a = new AesUtil("1234567890123456");
